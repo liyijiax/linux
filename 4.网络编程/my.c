@@ -6,14 +6,24 @@
  ************************************************************************/
 
 #include "common.h" 
+#include <string.h>
 
 int main(int argc, char *argv[]) {
-    int sockfd, port;
-
+    int sockfd;
+    char buff[512];
+    char *server = argv[1];
+    int port = atoi(argv[2]);
+    char *name = argv[3];
     
-    struct sockedaddr_in addr;
+    struct sockaddr_in addr;
+    
+    if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
+        perror("socket()");
+        exit(1);
+    }
+
     addr.sin_family = AF_INET;
-    addr->sin_port = 8090;
+    addr.sin_port = 8090;
     addr.sin_addr.s_addr = inet_addr(server);
 
     socklen_t len = sizeof(addr);
