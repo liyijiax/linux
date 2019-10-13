@@ -1,6 +1,6 @@
 #!/bin/bash
 
-max_n=100
+max_n=10000
 
 for (( i=0; i <= max_n; i++ )) do
     prime[$i]=0
@@ -8,14 +8,14 @@ done
 
 
 for (( i=2; i<=max_n; i++ )) do
-        if [[ prime[$i] -eq 0 ]]; then
+        if [[ ${prime[$i]} -eq 0 ]]; then
             prime[++prime[0]]=$i
         fi
     for (( j=1; j<=prime[0]; j++ )) do
         if [[ $i*prime[$j] -gt $max_n ]]; then
             break
         fi
-        prime[prime[j]*$i]=1
+        prime[prime[$j]*$i]=1
         if [[ $i%prime[j] -eq 0 ]]; then
             break
         fi
@@ -28,3 +28,5 @@ for (( i=1; i <= prime[0]; i++ )) do
 done
 
 echo ""
+
+#不要用那些已经被淘汰的比如单括号
